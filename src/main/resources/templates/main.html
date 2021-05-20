@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+<form th:action="@{/}" method="post">
+    <label for="message">Enter URL: </label>
+    <input type="text" th:field="*{url}" id="message" th:object="${message}">
+    <table border="1">
+        <div th:each="message : ${messages}">
+            <tr>
+                <div th:switch="${message.getCount()}">
+                    <td>
+                        <a th:href="${message.getUrl()}" th:case="${minCount}" style="background-color: red" th:text="${message.getUrl()}">url</a>
+                        <a th:href="${message.getUrl()}" th:case="${maxCount}" style="background-color: green" th:text="${message.getUrl()}">url</a>
+                        <a th:href="${message.getUrl()}" th:case="*" th:text="${message.getUrl()}">url</a>
+                    </td>
+                </div>
+                <div th:switch="${message.getCount()}">
+                    <td>
+                        <p th:case="${minCount}" style="background-color: red" th:text="${message.getCount()}">count</p>
+                        <p th:case="${maxCount}" style="background-color: green" th:text="${message.getCount()}">count</p>
+                        <p th:case="*" th:text="${message.getCount()}">count</p>
+                    </td>
+                </div>
+            </tr>
+        </div>
+
+    </table>
+    <div><input type="submit" value="Submit"></div>
+</form>
+</body>
+</html>
